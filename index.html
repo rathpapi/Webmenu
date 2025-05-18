@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHO KANG-MNEU</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <h1 class="splash-title">PHO KANG</h1>
+            <div class="splash-icon">
+                <img src="Logos/pho_kang_logo.jpg" alt="PHO KANG Logo" class="splash-logo">
+            </div>
+            <p class="splash-tagline">សូមស្វាគមន៏-WELCOME</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="app" class="app-container hidden">
+        <!-- Header -->
+        <header class="header">
+            <h1>PHO KANG-MENU</h1>
+            <div class="cart-icon" id="cart-icon">
+                <span class="material-icons">shopping_cart</span>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Menu Section -->
+            <section id="menu-section" class="section active">
+                <div class="category-tabs" id="category-tabs">
+                    <!-- Category tabs will be populated by JavaScript -->
+                </div>
+                <div class="menu-items" id="menu-items">
+                    <!-- Menu items will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Cart Section -->
+            <section id="cart-section" class="section">
+                <div class="section-header">
+                    <h2>Your Cart</h2>
+                    <button id="clear-cart-btn" class="text-button">
+                        <span class="material-icons">delete</span> Clear Cart
+                    </button>
+                </div>
+                <div id="cart-items" class="cart-items">
+                    <!-- Cart items will be populated by JavaScript -->
+                </div>
+                <div id="cart-empty" class="empty-state">
+                    <span class="material-icons large-icon">shopping_cart</span>
+                    <p>Your cart is empty</p>
+                    <button id="start-ordering-btn" class="primary-button">Start Ordering</button>
+                </div>
+                <div class="cart-summary" id="cart-summary">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="total">$0.00</span>
+                    </div>
+                    <button id="checkout-btn" class="primary-button checkout-btn">Checkout</button>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders-section" class="section">
+                <h2>Your Orders</h2>
+                <div id="orders-list" class="orders-list">
+                    <!-- Order items will be populated by JavaScript -->
+                </div>
+                <div id="orders-empty" class="empty-state">
+                    <span class="material-icons large-icon">receipt_long</span>
+                    <p>No order history</p>
+                    <button id="start-ordering-from-orders-btn" class="primary-button">Start Ordering</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div class="nav-item active" data-section="menu-section">
+                <span class="material-icons">restaurant_menu</span>
+                <span>Menu</span>
+            </div>
+            <div class="nav-item" data-section="cart-section">
+                <span class="material-icons">shopping_cart</span>
+                <span>Cart</span>
+            </div>
+            <div class="nav-item" data-section="orders-section">
+                <span class="material-icons">receipt_long</span>
+                <span>Orders</span>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="order-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Order Details</h2>
+                <span class="material-icons close-modal">close</span>
+            </div>
+            <div class="modal-body">
+                <div id="order-details-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Checkout</h2>
+                <span class="material-icons close-modal">close</span>
+            </div>
+            <div class="modal-body">
+                <h3>Order Summary</h3>
+                <div id="checkout-items" class="checkout-items"></div>
+                <div class="checkout-summary">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="checkout-subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="checkout-total">$0.00</span>
+                    </div>
+                </div>
+                
+                <div class="table-config">
+                    <h3>លេខតុ</h3>
+                    <p class="config-description">សូមបញ្ចូលលេខតុរបស់អ្នកសម្រាប់ការកម្ម៉ង់:</p>
+                    <div class="form-group">
+                        <label for="table-number"></label>
+                        <input type="text" id="table-number" placeholder="Enter your table number" />
+                    </div>
+                    <div class="form-group">
+                        <label for="remark">Remark / Note</label>
+                        <input type="text" id="remark" placeholder="Add a note (optional)" />
+                    </div>
+                </div>
+                <div class="checkout-actions">
+                    <button id="place-order-btn" class="primary-button">Place Order</button>
+                    <button class="secondary-button close-modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="order-confirmation-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Order Confirmed</h2>
+                <span class="material-icons close-modal">close</span>
+            </div>
+            <div class="modal-body" id="order-confirmation-content">
+                <div class="confirmation-icon">
+                    <span class="material-icons">check_circle</span>
+                </div>
+                <h3>សូមអរគុណពួកយើងកំពុងរៀបចំការកម្ម៉ង់របស់អ្នក</h3>
+                <p>ការកម្ម៉ង់របស់អ្នកត្រូវបានជោគជ័យ។</p>
+                <p>លេខកូដកម្ម៉ង់: <span id="confirmation-order-id"></span></p>
+                <p id="confirmation-table-number"></p>
+                <div class="telegram-status" id="telegram-status"></div>
+                <button class="primary-button close-modal">បន្ត</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/orders.js"></script>
+    <script src="js/telegram.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
